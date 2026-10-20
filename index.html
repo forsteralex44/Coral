@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[SHOP NAME] – Coral Catalog</title>
+<style>
+:root{--bg:#f7f9fa;--surface:#fff;--text:#1b2a33;--muted:#5d6f7a;--accent:#e4572e;--line:#d9e1e6;--ph:#e6edf1;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a20;--surface:#17252d;--text:#e8f0f4;--muted:#9bb0bb;--accent:#ff7a52;--line:#2a3d48;--ph:#22343e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1a20;--surface:#17252d;--text:#e8f0f4;--muted:#9bb0bb;--accent:#ff7a52;--line:#2a3d48;--ph:#22343e;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--accent)}
+.banner{background:var(--accent);color:#fff;text-align:center;padding:.5rem 1rem;font-weight:600;font-size:.95rem}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 1rem}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;padding:.75rem 0}
+.logo{font-weight:700;font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:.25rem 1rem}
+nav a{color:var(--muted);text-decoration:none;padding:.25rem 0;border-bottom:2px solid transparent}
+nav a.on,nav a:hover{color:var(--text);border-color:var(--accent)}
+main{padding:1.5rem 0 3rem;min-height:60vh}
+h1{font-size:2rem;line-height:1.2;margin:.5rem 0 1rem}h2{margin-top:2rem}
+.lead{color:var(--muted);font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.card .body{padding:1rem}.card h3{margin:0 0 .25rem}
+.photo{aspect-ratio:4/3;background:var(--ph);color:var(--muted);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.9rem;padding:.5rem;width:100%;object-fit:cover}
+.price{font-weight:700;font-size:1.1rem}
+.tag{display:inline-block;font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:0 .6rem;color:var(--muted)}
+.tag.sold{border-color:var(--accent);color:var(--accent)}
+.note{background:var(--surface);border-left:4px solid var(--accent);padding:.75rem 1rem;border-radius:6px;margin:1rem 0}
+.ph-text{background:var(--ph);padding:0 .25rem;border-radius:3px}
+dl{margin:.5rem 0}dt{font-weight:600;font-size:.85rem;color:var(--muted)}dd{margin:0 0 .5rem}
+button,.btn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.6rem 1rem;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+button[disabled]{opacity:.5;cursor:not-allowed}
+input,textarea{width:100%;font:inherit;padding:.5rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);margin:.25rem 0 .75rem}
+label{display:block;font-size:.85rem;color:var(--muted)}.item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1rem 0}.row{display:flex;gap:.5rem;flex-wrap:wrap}.sec{background:#fff0;border:1px solid var(--line)}.sticky{position:sticky;bottom:0;background:var(--bg);padding:.75rem 0;border-top:1px solid var(--line)}.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.thumb{max-width:160px;border-radius:6px;display:block;margin:.25rem 0}input[type=checkbox]{width:auto}
+footer{border-top:1px solid var(--line);padding:1.5rem 0;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="banner">Coming soon—orders not yet available.</div>
+<header><div class="wrap bar"><a class="logo" href="#/" id="logo"></a><nav id="nav"></nav></div></header>
+<div class="wrap"><main id="app"></main></div>
+<footer><div class="wrap"><span id="foot"></span></div></footer>
+<script src="data.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const photo=(p,alt)=>p?`<img class="photo" src="${p}" alt="${alt}">`:`<div class="photo">Photo placeholder<br>[${alt}]</div>`;
+const soon=`<button disabled>Orders coming soon</button>`;
+const ml=sub=>`mailto:${DATA.site.email}?subject=${encodeURIComponent(sub)}`;
+const cto=c=>`<div class="card">${photo(c.photo,c.name)}<div class="body"><h3>${c.name}</h3><div class="price">${c.price}</div><dl><dt>Frag size / heads</dt><dd>${c.fragSize}</dd><dt>Care</dt><dd>${c.care}</dd></dl><p><a href="${ml("Question about "+c.name)}">Ask about this coral</a></p>${soon}</div></div>`;
+const wys=w=>`<div class="card">${photo(w.photo,w.name)}<div class="body"><h3>${w.name}</h3><div class="price">${w.price}</div><p>Size: ${w.size}</p><p><span class="tag ${w.available?"":"sold"}">${w.available?"Available · 1 in stock":"Sold / unavailable"}</span></p>${soon}</div></div>`;
+const pack=p=>`<div class="card"><div class="body"><h3>${p.name}</h3><div class="price">${p.price||"Price TBD"}</div><dl><dt>Frag count</dt><dd>${p.count}</dd><dt>Coral types</dt><dd>${p.types}</dd><dt>Approx. frag sizes</dt><dd>${p.sizes}</dd></dl><p><a href="${ml("Preferences for "+p.name)}">Message me with preferences</a></p>${soon}</div></div>`;
+const pages={
+"":()=>{const f=[...DATA.cto.filter(x=>x.featured).map(cto),...DATA.wys.filter(x=>x.featured).map(wys)].join("");
+return `<h1>${DATA.site.shopName}</h1><p class="lead">${DATA.site.tagline}</p><p><a class="btn" href="#/cut-to-order">Cut to Order</a> <a class="btn" href="#/wysiwyg">WYSIWYG</a> <a class="btn" href="#/frag-packs">Frag Packs</a></p>${f?`<h2>Featured coral</h2><div class="grid">${f}</div>`:""}<h2>How it works</h2><ol><li>Browse the three catalog sections.</li><li>Message me with questions or requests.</li><li>Orders open soon. Choose shipping or local pickup.</li></ol><div class="note">This site is a catalog only for now. Ordering is not yet available.</div><h2>About</h2><p>${DATA.site.about} <a href="#/about">More about me</a></p>`},
+"cut-to-order":()=>`<h1>Cut to Order</h1><div class="note"><strong>You receive a frag, not the pictured colony.</strong> The photos show mother colonies that frags are cut from. Each frag needs <strong>two weeks of healing</strong> before it ships or is picked up locally.</div><div class="grid">${DATA.cto.map(cto).join("")}</div>`,
+"wysiwyg":()=>`<h1>WYSIWYG</h1><p class="lead">What you see is what you get: photos show the exact coral you would receive. Each piece is one of a kind.</p><div class="grid">${DATA.wys.map(wys).join("")}</div>`,
+"frag-packs":()=>{const r=DATA.packs.filter(p=>p.ready);return `<h1>Frag Packs</h1><p class="lead">Boxes of assorted frags. Message me with preferences or specific requests; I’ll do my best to accommodate them, but selections aren’t guaranteed.</p><div class="grid">${r.length?r.map(pack).join(""):"<p>Packs coming soon.</p>"}</div>`},
+"shipping-pickup":()=>`<h1>Shipping &amp; Pickup</h1><h2>Shipping</h2><p>${DATA.ship.shipping}</p><h2>Local pickup</h2><p>${DATA.ship.pickup}</p><h2>Policies</h2><p>${DATA.ship.policies}</p>`,
+"about":()=>`<h1>About &amp; Contact</h1><p>${DATA.site.about}</p><p>Location: ${DATA.site.location}<br>Email: <a href="mailto:${DATA.site.email}">${DATA.site.email}</a></p><h2>Send a message</h2><label>Your name<input id="n"></label><label>Message (questions, pack preferences, requests)<textarea id="m" rows="5"></textarea></label><button onclick="send()">Open in my email app</button>`
+};
+function send(){location.href=`mailto:${DATA.site.email}?subject=${encodeURIComponent("Catalog inquiry")}&body=${encodeURIComponent(($("#m").value||"")+"\n\n— "+($("#n").value||""))}`}
+const navItems=[["","Home"],["cut-to-order","Cut to Order"],["wysiwyg","WYSIWYG"],["frag-packs","Frag Packs"],["shipping-pickup","Shipping & Pickup"],["about","About & Contact"]];
+function route(){
+const k=location.hash.replace(/^#\/?/,"");const page=pages[k]?k:"";
+$("#app").innerHTML=pages[page]();
+$("#logo").textContent=DATA.site.shopName;
+$("#foot").textContent=`© [YEAR] ${DATA.site.shopName} · ${DATA.site.location} · Catalog only; no orders or payments are being taken.`;
+$("#nav").innerHTML=navItems.map(([h,t])=>`<a href="#/${h}" class="${h===page?"on":""}">${t.replace("&","&amp;")}</a>`).join("");
+document.title=`${DATA.site.shopName} – ${navItems.find(n=>n[0]===page)[1]}`;scrollTo(0,0)}
+addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>
