@@ -12,7 +12,7 @@
    ============================================================ */
 const DATA = {
   "site": {
-    "shopName": "[SHOP NAME]",
+    "shopName": "[SADcorals]",
     "email": "you@example.com",
     "location": "[CITY, STATE]",
     "tagline": "Aquacultured corals for reef hobbyists. [PLACEHOLDER TAGLINE]",
@@ -20,11 +20,11 @@ const DATA = {
   },
   "cto": [
     {
-      "name": "[Sample coral name A]",
+      "name": "[SC orange passion]",
       "photo": "",
-      "fragSize": "[e.g. 3–5 heads]",
-      "price": "[$00]",
-      "care": "[Lighting / flow / feeding notes]",
+      "fragSize": "[1"]",
+      "price": "[$150]",
+      "care": "[Lighting:high / flow:high]",
       "featured": true
     },
     {
