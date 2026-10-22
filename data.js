@@ -22,9 +22,9 @@ const DATA = {
     {
       "name": "[SC orange passion]",
       "photo": "",
-      "fragSize": "[1"]",
+      "fragSize": "[1 inch+]",
       "price": "[$150]",
-      "care": "[Lighting:high / flow:high]",
+      "care": "[Lighting / flow / feeding notes]",
       "featured": true
     },
     {
